@@ -2,20 +2,20 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     tools:context=".MainActivity">
 
     <android.support.v7.widget.GridLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_wrapHeight="1059"
+        tools:layout_conversion_wrapWidth="1920">
 
         <CheckBox
             android:id="@+id/check_temp"
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/text_pres"
-            android:layout_width="116dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/check_pres"
             android:textAlignment="center"
@@ -47,7 +47,7 @@
 
         <TextView
             android:id="@+id/label"
-            android:layout_width="152dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/weather_label"
             android:textAlignment="center"
@@ -76,7 +76,7 @@
 
         <TextView
             android:id="@+id/text_hum"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/check_hum"
             android:textAlignment="center"
@@ -103,4 +103,5 @@
             app:layout_row="4" />
 
     </android.support.v7.widget.GridLayout>
+
 </android.support.constraint.ConstraintLayout>

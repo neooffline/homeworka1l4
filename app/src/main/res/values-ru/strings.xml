@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Homework_a1l4</string>
+    <string name="app_name">Практическое Задание Android 1 урок 4</string>
     <string name="weather_label">Город</string>
     <string name="weather_value">Нет</string>
     <string name="back_to_main_button">Назад</string>
