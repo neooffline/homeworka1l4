@@ -16,17 +16,18 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     private SharedPreferences spf;
     private boolean[] booleans;
     private CheckBox[] allCheckBoxies;
+    static final int CHECKBOX_NUMBER = 3;
     static final String TOKEN = "weatherObj";
     static final String PREF_SAVE = "SAVED_WEATHER";
     static final String PREF_SAVE_B = "PREF_SAVE_B";
-    static final String isCheckedParam = "isCheckedParam";
+    static final String IS_CHECKED_PARAM = "isChecked";
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable("weather", weather);
         for (int i = 0; i < allCheckBoxies.length; i++) {
-            outState.putBoolean(isCheckedParam + i, allCheckBoxies[i].isChecked());
+            outState.putBoolean(IS_CHECKED_PARAM + i, allCheckBoxies[i].isChecked());
         }
         makeToastNLog("App Save Instance");
     }
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onRestoreInstanceState(savedInstanceState);
         weather = savedInstanceState.getParcelable("weather");
         for (int i = 0; i < allCheckBoxies.length; i++) {
-            allCheckBoxies[i].setChecked(savedInstanceState.getBoolean(isCheckedParam+i));
+            allCheckBoxies[i].setChecked(savedInstanceState.getBoolean(IS_CHECKED_PARAM +i));
         }
         makeToastNLog("App Restore Instance");
     }
@@ -45,11 +46,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        weather = new Weather(true);
         setCheckBoxies();
+        weather = new Weather(true);
         if (savedInstanceState != null) {
             for (int i = 0; i < allCheckBoxies.length; i++) {
-                allCheckBoxies[i].setChecked(savedInstanceState.getBoolean(isCheckedParam+i));
+                allCheckBoxies[i].setChecked(savedInstanceState.getBoolean(IS_CHECKED_PARAM +i));
             }
         }
 
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onPause() {
         super.onPause();
-//        chekes();
+        chekes();
         saveText();
         makeToastNLog("App onPause");
     }
@@ -95,12 +96,13 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Intent intent = new Intent(this.getApplicationContext(), SecondScreen.class);
         intent.putExtra(TOKEN, weather);
         chekes();
-        intent.putExtra("isCheckedParam0",true);
+        for (int i = 0; i < CHECKBOX_NUMBER; i++) {
+            String param = String.format("%s%s", IS_CHECKED_PARAM, i);
+            intent.putExtra(param, allCheckBoxies[i].isChecked());
+        }
+        /*intent.putExtra("isCheckedParam0",true);
         intent.putExtra("isCheckedParam1",true);
-        intent.putExtra("isCheckedParam2",true);
-       /* for (int i = 0; i < allCheckBoxies.length; i++) {
-            intent.putExtra(isCheckedParam + i, allCheckBoxies[i].isChecked());
-        }*/
+        intent.putExtra("isCheckedParam2",true);*/
         startActivity(intent);
     }
 
@@ -118,23 +120,23 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     private void loadText() {
         spf = getPreferences(MODE_PRIVATE);
-        for (int i = 0; i < allCheckBoxies.length; i++) {
+        for (int i = 0; i < CHECKBOX_NUMBER; i++) {
             allCheckBoxies[i].setChecked(spf.getBoolean(PREF_SAVE_B + i, false));
         }
         makeToastNLog("Loading Weather");
     }
 
     private void chekes() {
-        booleans = new boolean[allCheckBoxies.length];
-        for (int i = 0; i < allCheckBoxies.length; i++) {
+        booleans = new boolean[CHECKBOX_NUMBER];
+        for (int i = 0; i < CHECKBOX_NUMBER; i++) {
             booleans[i] = allCheckBoxies[i].isChecked();
         }
     }
 
     private void setCheckBoxies() {
-        allCheckBoxies = new CheckBox[3];
-        allCheckBoxies[0] = findViewById(R.id.check_temp);
-        allCheckBoxies[1] = findViewById(R.id.check_hum);
-        allCheckBoxies[2] = findViewById(R.id.check_pres);
+        allCheckBoxies = new CheckBox[CHECKBOX_NUMBER];
+        allCheckBoxies[0] = this.findViewById(R.id.check_temp);
+        allCheckBoxies[1] = this.findViewById(R.id.check_hum);
+        allCheckBoxies[2] = this.findViewById(R.id.check_pres);
     }
 }

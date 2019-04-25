@@ -12,48 +12,34 @@ import java.util.Locale;
 public class SecondScreen extends AppCompatActivity {
 
     static final String TOKEN = "weatherObj";
-    static final String isCheckedParam = "isCheckedParam";
+    static final String IS_CHECKED_PARAM = "isChecked";
     static final int STRINGS = 3;
-    private TextView[][] tTopics, tValues, tDims;
+    private TextView[][] tTopics;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_screen);
-        Intent i = this.getIntent();
+        Intent intent = this.getIntent();
         Weather weather;
         try {
-            weather = i.getParcelableExtra(TOKEN);
+            weather = intent.getParcelableExtra(TOKEN);
         } catch (Throwable t) {
             Log.e("Error", t.getMessage());
             weather = new Weather(true);
         }
         settTopics();
         for (int j = 0; j < STRINGS; j++) {
-            if (i.getExtras().getBoolean(isCheckedParam + j))
-                tTopics[j][1].setText(String.format(Locale.ENGLISH,"%d",weather.getAllparams()[j]));
-            else {
+            if (intent.getExtras().getBoolean(String.format("%s%s", IS_CHECKED_PARAM, String.valueOf(j)))) {
+                tTopics[j][1].setText(String.format("%d",weather.getAllValues()[j]));
+            } else {
                 for (int k = 0; k < STRINGS; k++) {
                     tTopics[j][k].setVisibility(View.INVISIBLE);
                 }
             }
         }
-        /*hideTextViewies(findViewById(R.id.temp_value),
-                (TextView) findViewById(R.id.ss_temp_value),
-                findViewById(R.id.temp_dim),
-                i.getBooleanExtra(isCheckedParam + 0, false),
-                weather.getTemperature());
-        hideTextViewies(findViewById(R.id.hum_value),
-                (TextView) findViewById(R.id.ss_hum_value),
-                findViewById(R.id.hum_dim),
-                i.getBooleanExtra(isCheckedParam + 1, false),
-                weather.getHumidity());
-        hideTextViewies(findViewById(R.id.press_value),
-                (TextView) findViewById(R.id.ss_press_value),
-                findViewById(R.id.press_dim),
-                i.getBooleanExtra(isCheckedParam + 2, false),
-                weather.getPressure());*/
+
     }
 
     public void goBack(View view) {
@@ -61,15 +47,6 @@ public class SecondScreen extends AppCompatActivity {
         startActivity(intent);
     }
 
-    void hideTextViewies(View tV, TextView tvVal, View dimV, boolean isCheked, int text) {
-        if (isCheked) {
-            tvVal.setText(String.format(Locale.ENGLISH, "%d", text));
-        } else {
-            tV.setVisibility(View.INVISIBLE);
-            tvVal.setVisibility(View.INVISIBLE);
-            dimV.setVisibility(View.INVISIBLE);
-        }
-    }
 
     void settTopics() {
         tTopics = new TextView[STRINGS][STRINGS];

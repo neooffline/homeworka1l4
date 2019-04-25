@@ -3,7 +3,6 @@ package ru.neooffline.homeworka1l4;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.Locale;
 import java.util.Random;
 
@@ -11,7 +10,8 @@ public class Weather implements ChangeValue, Parcelable {
     private int temperature;
     private int humidity;
     private int pressure;
-    private int[] allparams;
+    static final int PARAMETERS = 3;
+    private int[] allValues = new int[PARAMETERS];
 
     public int getTemperature() {
         return temperature;
@@ -25,11 +25,11 @@ public class Weather implements ChangeValue, Parcelable {
         return pressure;
     }
 
-    int[] getAllparams() {
-        allparams[0] = temperature;
-        allparams[1] = humidity;
-        allparams[2] = pressure;
-        return allparams;
+    int[] getAllValues() {
+        allValues[0] = temperature;
+        allValues[1] = humidity;
+        allValues[2] = pressure;
+        return allValues;
     }
 
     private String fullWeather;
@@ -37,10 +37,7 @@ public class Weather implements ChangeValue, Parcelable {
 
     public Weather(boolean isFull) {
         if (isFull) {
-            temperature = 0;
-            humidity = 0;
-            pressure = 0;
-            allparams = new int[3];
+            changeAll();
         } else {
             fullWeather = "Нет данных по погоде";
         }
@@ -51,7 +48,7 @@ public class Weather implements ChangeValue, Parcelable {
         this.humidity = in.readInt();
         this.pressure = in.readInt();
         this.fullWeather = in.readString();
-//        this.allparams=in.readIntArray(getAllparams());
+        this.allValues=in.createIntArray();
     }
 
     public static final Creator<Weather> CREATOR = new Creator<Weather>() {
@@ -96,9 +93,9 @@ public class Weather implements ChangeValue, Parcelable {
         changeTemp();
         changeHumidity();
         changePres();
-        allparams[0]=temperature;
-        allparams[1]=humidity;
-        allparams[2]=pressure;
+        allValues[0] = temperature;
+        allValues[1] = humidity;
+        allValues[2] = pressure;
     }
 
     private static int getRandomNumberInRange(int min, int max) {
@@ -121,6 +118,6 @@ public class Weather implements ChangeValue, Parcelable {
         dest.writeInt(this.humidity);
         dest.writeInt(this.pressure);
         dest.writeString(this.fullWeather);
-        dest.writeIntArray(this.allparams);
+        dest.writeIntArray(this.allValues);
     }
 }

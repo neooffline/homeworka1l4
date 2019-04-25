@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/temp_value"
-            android:layout_width="wrap_content"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:text="@string/check_temp"
             android:textSize="16sp"
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/hum_value"
-            android:layout_width="wrap_content"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:text="@string/check_hum"
             android:textSize="16sp"
@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/press_value"
-            android:layout_width="wrap_content"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:text="@string/check_pres"
             android:textSize="16sp"
@@ -55,7 +55,7 @@
 
         <TextView
             android:id="@+id/ss_temp_value"
-            android:layout_width="35dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             app:layout_column="3"
@@ -63,7 +63,7 @@
 
         <TextView
             android:id="@+id/ss_hum_value"
-            android:layout_width="35dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             app:layout_column="3"
@@ -71,7 +71,7 @@
 
         <TextView
             android:id="@+id/ss_press_value"
-            android:layout_width="35dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             app:layout_column="3"
